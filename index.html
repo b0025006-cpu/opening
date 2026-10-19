@@ -1,14 +1,154 @@
 <!DOCTYPE html>
 <html lang="ja">
-
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ROYAL LUXURY CASINO - SUPREME SLOTS</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@700;900&family=Montserrat:wght@400;700;900&family=Noto+Sans+JP:wght@400;700;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
 </head>
-
 <body>
-    <h2>hello</h2>
-</body>
+  <!-- 背景演出用キャンバス -->
+  <canvas id="bg-canvas"></canvas>
+  <canvas id="fireworks-canvas"></canvas>
 
+  <div class="casino-container">
+    <!-- ヘッダー装飾 -->
+    <header class="header">
+      <div class="crown-badge">♛ GRAND CASINO ♛</div>
+      <h1 class="glamour-title">SUPREME SLOTS</h1>
+      <p class="subtitle">ULTIMATE JACKPOT EDITION</p>
+    </header>
+
+    <!-- ステータスボード -->
+    <section class="scoreboard">
+      <div class="stat-card">
+        <span class="stat-label">CREDITS</span>
+        <span class="stat-value" id="credit-display">1,000</span>
+      </div>
+      <div class="stat-card jackpot-card">
+        <span class="stat-label">JACKPOT POOL</span>
+        <span class="stat-value gold-glow" id="jackpot-display">777,777</span>
+      </div>
+      <div class="stat-card">
+        <span class="stat-label">LAST WIN</span>
+        <span class="stat-value" id="win-display">0</span>
+      </div>
+    </section>
+
+    <!-- スロットマシン筐体 -->
+    <main class="slot-machine-frame">
+      <div class="marquee-lights top-lights">
+        <span class="bulb"></span><span class="bulb"></span><span class="bulb"></span>
+        <span class="bulb"></span><span class="bulb"></span><span class="bulb"></span>
+        <span class="bulb"></span><span class="bulb"></span><span class="bulb"></span>
+        <span class="bulb"></span><span class="bulb"></span><span class="bulb"></span>
+      </div>
+
+      <div class="machine-interior">
+        <div class="payline-indicator"></div>
+
+        <div class="reels-container">
+          <!-- リール 1 -->
+          <div class="reel-wrapper" id="reel-wrap-0">
+            <div class="reel-strip" id="reel-0"></div>
+          </div>
+          <!-- リール 2 -->
+          <div class="reel-wrapper" id="reel-wrap-1">
+            <div class="reel-strip" id="reel-1"></div>
+          </div>
+          <!-- リール 3 -->
+          <div class="reel-wrapper" id="reel-wrap-2">
+            <div class="reel-strip" id="reel-2"></div>
+          </div>
+        </div>
+
+        <!-- メッセージ・演出トースト -->
+        <div class="announcement-screen" id="announcement">
+          PRESS SPIN TO TEST YOUR LUCK
+        </div>
+      </div>
+
+      <div class="marquee-lights bottom-lights">
+        <span class="bulb"></span><span class="bulb"></span><span class="bulb"></span>
+        <span class="bulb"></span><span class="bulb"></span><span class="bulb"></span>
+        <span class="bulb"></span><span class="bulb"></span><span class="bulb"></span>
+        <span class="bulb"></span><span class="bulb"></span><span class="bulb"></span>
+      </div>
+
+      <!-- コントロールパネル -->
+      <section class="control-panel">
+        <div class="bet-controls">
+          <span class="control-title">BET</span>
+          <div class="bet-buttons">
+            <button class="btn btn-secondary" id="bet-minus">-10</button>
+            <div class="bet-amount-box">
+              <span id="bet-display">50</span>
+            </div>
+            <button class="btn btn-secondary" id="bet-plus">+10</button>
+            <button class="btn btn-max" id="bet-max">MAX</button>
+          </div>
+        </div>
+
+        <div class="spin-controls">
+          <button class="btn btn-auto" id="auto-spin-btn">AUTO: OFF</button>
+          <button class="btn btn-spin" id="spin-btn">
+            <span class="spin-glow"></span>
+            <span class="spin-text">SPIN</span>
+          </button>
+        </div>
+      </section>
+    </main>
+
+    <!-- 配当表 (PAYTABLE) モーダル/アコーディオン -->
+    <details class="paytable-details">
+      <summary class="paytable-summary">★ PAYTABLE & RULES (配当一覧) ★</summary>
+      <div class="paytable-grid">
+        <div class="pay-item gold-border">
+          <div class="symbol-preview">7️⃣ 7️⃣ 7️⃣</div>
+          <div class="pay-desc">JACKPOT</div>
+          <div class="pay-mult">× 200 (JACKPOT POOL!)</div>
+        </div>
+        <div class="pay-item">
+          <div class="symbol-preview">💎 💎 💎</div>
+          <div class="pay-desc">DIAMOND</div>
+          <div class="pay-mult">× 50</div>
+        </div>
+        <div class="pay-item">
+          <div class="symbol-preview">👑 👑 👑</div>
+          <div class="pay-desc">CROWN</div>
+          <div class="pay-mult">× 30</div>
+        </div>
+        <div class="pay-item">
+          <div class="symbol-preview">🔔 🔔 🔔</div>
+          <div class="pay-desc">GOLD BELL</div>
+          <div class="pay-mult">× 15</div>
+        </div>
+        <div class="pay-item">
+          <div class="symbol-preview">🍒 🍒 🍒</div>
+          <div class="pay-desc">CHERRY</div>
+          <div class="pay-mult">× 8</div>
+        </div>
+        <div class="pay-item">
+          <div class="symbol-preview">🍇 🍇 🍇</div>
+          <div class="pay-desc">GRAPE</div>
+          <div class="pay-mult">× 5</div>
+        </div>
+        <div class="pay-item">
+          <div class="symbol-preview">🍒 🍒 Any</div>
+          <div class="pay-desc">CHERRY 2x</div>
+          <div class="pay-mult">× 2</div>
+        </div>
+      </div>
+    </details>
+
+    <footer class="footer">
+      <p>※ Web Audio API搭載（スピン開始時にサウンドが鳴ります）</p>
+    </footer>
+  </div>
+
+  <script src="main.js"></script>
+</body>
 </html>
